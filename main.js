@@ -1,156 +1,48 @@
-canvas = document.getElementById("myCanvas");
-ctx = canvas.getContext("2d");
+quick_draw_data_set=["aircraft carrier","airplane","alarm clock","ambulance","angel","animal migration","ant","anvil","apple","arm","asparagus","axe","backpack","banana","bandage","barn","baseball","baseball bat","basket","basketball","bat","bathtub","beach","bear","beard","bed","bee","belt","bench","bicycle","binoculars","bird","birthday cake","blackberry","blueberry","book","boomerang","bottlecap","bowtie","bracelet","brain","bread","bridge","broccoli","broom","bucket","bulldozer","bus","bush","butterfly","cactus","cake","calculator","calendar","camel","camera","camouflage","campfire","candle","cannon","canoe","car","carrot","castle","cat","ceiling fan","cello","cell phone","chair","chandelier","church","circle","clarinet","clock","cloud","coffee cup","compass","computer","cookie","cooler","couch","cow","crab","crayon","crocodile","crown","cruise ship","cup","diamond","dishwasher","diving board","dog","dolphin","donut","door","dragon","dresser","drill","drums","duck","dumbbell","ear", "elbow","elephant","envelope","eraser","eye","eyeglasses","face","fan","feather","fence","finger","fire hydrant","fireplace","firetruck","fish","flamingo","flashlight","flip flops","floor lamp","flower","flying saucer","foot","fork","frog","frying pan","garden","garden hose","giraffe","goatee","golf club","grapes","grass","guitar","hamburger","hammer","hand","harp","hat","headphones","hedgehog","helicopter","helmet","hexagon","hockey puck","hockey stick","horse","hospital","hot air balloon","hot dog","hot tub","hourglass","house","house plant","hurricane","ice cream","jacket","jail","kangaroo","key","keyboard","knee","knife","ladder","lantern","laptop","leaf","leg","light bulb","lighter","lighthouse","lightning","line","lion","lipstick","lobster","lollipop","mailbox","map","marker","matches","megaphone","mermaid","microphone","microwave","monkey","moon","mosquito","motorbike","mountain","mouse","moustache","mouth","mug","mushroom","nail","necklace","nose","ocean","octagon","octopus","onion","oven","owl","paintbrush","paint can","palm tree","panda","pants","paper clip","parachute","parrot","passport","peanut","pear","peas","pencil","penguin","piano","pickup truck","picture frame","pig","pillow","pineapple","pizza","pliers","police car","pond","pool","popsicle","postcard","potato","power outlet","purse","rabbit","raccoon","radio","rain","rainbow","rake","remote control","rhinoceros","rifle","river","roller coaster","rollerskates","sailboat","sandwich","saw","saxophone","school bus","scissors","scorpion","screwdriver","sea turtle","see saw","shark","sheep","shoe","shorts","shovel","sink","skateboard","skull","skyscraper","sleeping bag","smiley face","snail","snake","snorkel","snowflake","snowman","soccer ball","sock","speedboat","spider","spoon","spreadsheet","square","squiggle","squirrel","stairs","star","steak","stereo","stethoscope","stitches","stop sign","stove","strawberry","streetlight","string bean","submarine","suitcase","sun","swan","sweater","swingset","sword","syringe","table","teapot","teddy-bear","telephone","television","tennis racquet","tent","The Eiffel Tower","The Great Wall of China","The Mona Lisa","tiger","toaster","toe","toilet","tooth","toothbrush","toothpaste","tornado","tractor","traffic light","train","tree","triangle","trombone","truck","trumpet","tshirt","umbrella","underwear","van","vase","violin","washing machine","watermelon","waterslide","whale","wheel","windmill","wine bottle","wine glass","wristwatch","yoga","zebra","zigzag"];
+random_no = Math.floor((Math.random()*quick_draw_data_set.length)+1);
+Element_of_array = quick_draw_data_set[random_no];
+document.getElementById("sketch_to_be_drawn").innerHTML = "Sketch To Be Drawn: "+Element_of_array;
 
-car1_width = 120;
-car1_height = 70;
-car2_width = 120;
-car2_height = 70;
+timer_counter = 0;
+timer_check = "";
+drawn_sketch = "";
+answer_holder = "";
+score = 0;
 
-background_image = "https://i.postimg.cc/bv5d35nK/racing.jpg";
-car1_image = "https://i.postimg.cc/9rqYz9HM/car1.png";
-car2_image = "https://i.postimg.cc/tnnW1Kff/car2.png";
+function draw(){
+    check_sketch();
+    if(drawn_sketch == sketch){
+        answer_holder = "set";
+        score = score+1;
+        document.getElementById("score").innerHTML = "Score: "+score;
+    }
+}
 
-car1_x = 10;
-car1_y = 10;
-car2_x = 10;
-car2_y = 100;
+function check_sketch(){
+    timer_counter++;
+    document.getElementById("timer").innerHTML = "Timer: "+timer_counter;
+    if(timer_counter>500){
+        timer_counter = 0;
+        timer_check = "completed";
+    }
+    if(timer_check == "completed" || answer_holder == "set"){
+        timer_check = "";
+        answer_holder = "";
+        updateCanvas();
+    }
+}
 
-function add() {
-    background_img_tag = new Image();
-    background_img_tag.onload = upload_background;
-    background_img_tag.src = background_image;
+function updateCanvas(){
+    background("white");
+    Quick_draw_data_set=["aircraft carrier","airplane","alarm clock","ambulance","angel","animal migration","ant","anvil","apple","arm","asparagus","axe","backpack","banana","bandage","barn","baseball","baseball bat","basket","basketball","bat","bathtub","beach","bear","beard","bed","bee","belt","bench","bicycle","binoculars","bird","birthday cake","blackberry","blueberry","book","boomerang","bottlecap","bowtie","bracelet","brain","bread","bridge","broccoli","broom","bucket","bulldozer","bus","bush","butterfly","cactus","cake","calculator","calendar","camel","camera","camouflage","campfire","candle","cannon","canoe","car","carrot","castle","cat","ceiling fan","cello","cell phone","chair","chandelier","church","circle","clarinet","clock","cloud","coffee cup","compass","computer","cookie","cooler","couch","cow","crab","crayon","crocodile","crown","cruise ship","cup","diamond","dishwasher","diving board","dog","dolphin","donut","door","dragon","dresser","drill","drums","duck","dumbbell","ear", "elbow","elephant","envelope","eraser","eye","eyeglasses","face","fan","feather","fence","finger","fire hydrant","fireplace","firetruck","fish","flamingo","flashlight","flip flops","floor lamp","flower","flying saucer","foot","fork","frog","frying pan","garden","garden hose","giraffe","goatee","golf club","grapes","grass","guitar","hamburger","hammer","hand","harp","hat","headphones","hedgehog","helicopter","helmet","hexagon","hockey puck","hockey stick","horse","hospital","hot air balloon","hot dog","hot tub","hourglass","house","house plant","hurricane","ice cream","jacket","jail","kangaroo","key","keyboard","knee","knife","ladder","lantern","laptop","leaf","leg","light bulb","lighter","lighthouse","lightning","line","lion","lipstick","lobster","lollipop","mailbox","map","marker","matches","megaphone","mermaid","microphone","microwave","monkey","moon","mosquito","motorbike","mountain","mouse","moustache","mouth","mug","mushroom","nail","necklace","nose","ocean","octagon","octopus","onion","oven","owl","paintbrush","paint can","palm tree","panda","pants","paper clip","parachute","parrot","passport","peanut","pear","peas","pencil","penguin","piano","pickup truck","picture frame","pig","pillow","pineapple","pizza","pliers","police car","pond","pool","popsicle","postcard","potato","power outlet","purse","rabbit","raccoon","radio","rain","rainbow","rake","remote control","rhinoceros","rifle","river","roller coaster","rollerskates","sailboat","sandwich","saw","saxophone","school bus","scissors","scorpion","screwdriver","sea turtle","see saw","shark","sheep","shoe","shorts","shovel","sink","skateboard","skull","skyscraper","sleeping bag","smiley face","snail","snake","snorkel","snowflake","snowman","soccer ball","sock","speedboat","spider","spoon","spreadsheet","square","squiggle","squirrel","stairs","star","steak","stereo","stethoscope","stitches","stop sign","stove","strawberry","streetlight","string bean","submarine","suitcase","sun","swan","sweater","swingset","sword","syringe","table","teapot","teddy-bear","telephone","television","tennis racquet","tent","The Eiffel Tower","The Great Wall of China","The Mona Lisa","tiger","toaster","toe","toilet","tooth","toothbrush","toothpaste","tornado","tractor","traffic light","train","tree","triangle","trombone","truck","trumpet","tshirt","umbrella","underwear","van","vase","violin","washing machine","watermelon","waterslide","whale","wheel","windmill","wine bottle","wine glass","wristwatch","yoga","zebra","zigzag"];
+    Random_number = Math.floor((Math.random()*Quick_draw_data_set.length)+1);
+    element_of_array = Quick_draw_data_set[Random_number];
+    sketch = element_of_array;
+    document.getElementById("sketch_to_be_drawn").innerHTML = "Sketch To Be Drawn: "+sketch;
+}
 
-    car1_img_tag = new Image();
-    car1_img_tag.onload = upload_car1;
-    car1_img_tag.src = car1_image;
-
-    car2_img_tag = new Image();
-    car2_img_tag.onload = upload_car2;
-    car2_img_tag.src = car2_image;
-}
-function upload_background() {
-    ctx.drawImage(background_img_tag,0,0,canvas.width,canvas.height);
-}
-function upload_car1() {
-    ctx.drawImage(car1_img_tag,car1_x,car1_y,car1_width,car1_height);
-}
-function upload_car2() {
-    ctx.drawImage(car2_img_tag,car2_x,car2_y,car2_width,car2_height);
-}
-window.addEventListener("keydown",my_keydown);
-function my_keydown(e) {
-    keypressed = e.keyCode;
-    console.log(keypressed);
-    if(keypressed == '38'){
-        car1_up();
-        console.log("Car1 up");
-    }
-    if(keypressed == '40'){
-        car1_down();
-        console.log("Car1 down");
-    }
-    if(keypressed == '37'){
-        car1_left();
-        console.log("Car1 left");
-    }
-    if(keypressed == '39'){
-        car1_right();
-        console.log("Car1 right");
-    }
-    if(keypressed == '65'){
-        car2_up();
-        console.log("Car2 up a");
-    }
-    if(keypressed == '83'){
-        car2_down();
-        console.log("Car2 down s");
-    }
-    if(keypressed == '90'){
-        car2_left();
-        console.log("Car2 left z");
-    }
-    if(keypressed == '88'){
-        car2_right();
-        console.log("Car2 right x");
-    }
-    if(car1_x > 700) {
-        console.log("Car1 Won");
-        document.getElementById("game_status").innerHTML = "Car 1 Won!!";
-    }
-    else if(car2_x > 700) {
-        console.log("Car2 Won");
-        document.getElementById("game_status").innerHTML = "Car 2 Won!!";
-    }
-}
-function car1_up() {
-    if(car1_y >= 0){
-        car1_y = car1_y-10;
-        console.log("when up arrow key pressed, x = "+car1_x+" y = "+car1_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car2_up() {
-    if(car2_y >= 0){
-        car2_y = car2_y-10;
-        console.log("when up arrow key pressed, x = "+car2_x+" y = "+car2_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car1_down() {
-    if(car1_y <= 500){
-        car1_y = car1_y+10;
-        console.log("when down arrow key pressed, x = "+car1_x+" y = "+car1_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car2_down() {
-    if(car2_y <= 500){
-        car2_y = car2_y+10;
-        console.log("when down arrow key pressed, x = "+car2_x+" y = "+car2_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car1_left() {
-    if(car1_x >= 0){
-        car1_x = car1_x-10;
-        console.log("when left arrow key pressed, x = "+car1_x+" y = "+car1_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car2_left() {
-    if(car2_x >= 0){
-        car2_x = car2_x-10;
-        console.log("when left arrow key pressed, x = "+car2_x+" y = "+car2_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car1_right() {
-    if(car1_x <= 700){
-        car1_x = car1_x+10;
-        console.log("when right arrow key pressed, x = "+car1_x+" y = "+car1_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
-}
-function car2_right() {
-    if(car2_x <= 700){
-        car2_x = car2_x+10;
-        console.log("when right arrow key pressed, x = "+car2_x+" y = "+car2_y);
-        upload_background();
-        upload_car1();
-        upload_car2();
-    }
+function setup(){
+    canvas = createCanvas(280,280);
+    canvas.center();
+    background("white");
 }
